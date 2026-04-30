@@ -1,0 +1,8 @@
+.windows95OS {
+    width: 800px;
+    height: 768px;
+    background-color: red;
+    border: 15px solid #585858;
+    border-radius: 0.02em;
+    box-shadow: 0 0 0.1em rgba(0, 0, 0, 0.5);
+}
