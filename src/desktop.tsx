@@ -1,5 +1,4 @@
 import {
-  PresentationControls,
   Environment,
   useGLTF,
   Html,
@@ -11,17 +10,12 @@ export default function Desktop() {
   const laptop = useGLTF("/retro_computer/untitled.gltf");
 
   return (
-    <PresentationControls
-      global
-      rotation={[0.13, 0.1, 0]}
-      polar={[-0.4, 0.2]}
-      azimuth={[-1, 0.75]}
-    >
+    <>
       <mesh position={[0, 0, -2]} scale={8}>
         <primitive object={laptop.scene}>
           <Html
             wrapperClass="laptop"
-            position={[-0.039, 0.031, 0.38]}
+            position={[-0.039, 0.037, 0.38]}
             transform
             distanceFactor={1}
             scale={[0.101, 0.09, 1]}
@@ -35,6 +29,6 @@ export default function Desktop() {
         </primitive>
       </mesh>
       <Environment preset="city" />
-    </PresentationControls>
+    </>
   );
 }

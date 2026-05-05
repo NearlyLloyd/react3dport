@@ -1,13 +1,16 @@
 
 import "./windows95.css";
-
+import DesktopApp from "./desktopapp";
+import aboutMeIcon from "../assets/icons/aboutme.png";
 export default function Windows95OS() {
   return (
     <div className="windows95OS">
-      <h1>Windows 95</h1>
-      <p>This is a simulation of the Windows 95 operating system.</p>
-      <p>Feel free to explore and interact with the interface!</p>
-      <p>wdihaoooooooooooooooooooougfrwuabeivfwmaPMfcmfgbwveuijfneoadfwdwubiudvjawvdwia</p>
+      <div className="windows95OS__screen">
+        <DesktopApp name="About Me" icon={aboutMeIcon} onClick={() => alert("About Me clicked!")} />
+        <div id="taskbarWrapper">
+          <div id="startButton">Start</div>
+        </div>
+      </div>
     </div>
   );
 }
