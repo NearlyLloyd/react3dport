@@ -5,11 +5,11 @@ interface DesktopAppProps {
     onClick: () => void;
 }
 
-export default function DesktopApp(Props: DesktopAppProps) {
+export default function DesktopApp({ name, icon, onClick }: DesktopAppProps) {
   return (
-    <div className="desktopApp" onClick={Props.onClick}>
-        <img src={Props.icon} width={48} height={48} alt={Props.name} />
-        <span>{Props.name}</span>
+    <div className="desktopApp" onClick={onClick}>
+        <img src={icon} width={48} height={48} alt={name}/>
+        <span>{name}</span>
     </div>
   );
 }
