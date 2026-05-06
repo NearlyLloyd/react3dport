@@ -1,3 +1,13 @@
+html {
+  font-family: "w95fa", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.borderedImg {
+  border-top: 3px solid #000;
+  border-left: 3px solid #000;
+  border-bottom: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
 .windows95OS {
   position: relative;
   width: 800px;
@@ -120,7 +130,6 @@
 .desktopApp {
   text-align: center;
   color: white;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 12px;
   width: 76px;
   height: 86px;
@@ -135,8 +144,8 @@
   position: absolute;
   top: 50px;
   left: 50px;
-  width: 500px;
-  height: 400px;
+  width: 600px;
+  height: 500px;
   background-color: #c0c0c0;
   border-top: 4px solid #fff;
   border-left: 4px solid #fff;
@@ -186,20 +195,17 @@
 }
 
 .window__content::-webkit-scrollbar-track {
-background: #c0c0c0;
-  box-shadow: inset 1px 1px 0px 0px #808080, inset 2px 2px 0px 0px #000; /* Inset effect */}
+  background: #dedddd;
+}
 
 .window__content::-webkit-scrollbar-thumb {
   background-color: #8a8a8a;
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
-  box-shadow: 1px 1px 0px 0px #000;
 }
 .window__content::-webkit-scrollbar-corner {
   background: #c0c0c0;
-
 }
-
 
 #taskbarWrapper {
   position: absolute;
@@ -238,7 +244,6 @@ background: #c0c0c0;
   padding: 20px;
   padding-top: 0;
 
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #000;
   background-color: #e0e0b9;
   border-bottom: 2px solid #fff;
@@ -261,7 +266,6 @@ background: #c0c0c0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   color: #000;
   cursor: pointer;
@@ -305,4 +309,9 @@ background: #c0c0c0;
   100% {
     transform: translateY(4px);
   }
+}
+
+@font-face {
+  font-family: "w95fa";
+  src: url("../assets/w95fa.woff2") format("woff2");
 }
