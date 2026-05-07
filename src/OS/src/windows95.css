@@ -1,4 +1,5 @@
 html {
+  position: relative;
   font-family: "w95fa", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -21,6 +22,27 @@ html {
   overflow: hidden;
   isolation: isolate;
   transform: perspective(1400px) rotateX(0.6deg) scale(1.002);
+  transition:
+    background-color 300ms ease,
+    box-shadow 300ms ease,
+    filter 300ms ease;
+}
+
+.windows95OS.is-off {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(150, 184, 171, 0.09), rgba(11, 21, 21, 0.02) 28%, rgba(1, 4, 5, 0.94) 70%),
+    linear-gradient(180deg, #071012 0%, #030708 100%);
+  box-shadow:
+    0 0 0.1em rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(0, 0, 0, 0.55),
+    inset 0 0 24px rgba(0, 0, 0, 0.8);
+  width: 850px;
+  height: 700px;
+  filter: saturate(0.45) brightness(0.4);
+}
+
+.windows95OS.is-on {
+  filter: saturate(1) brightness(1);
 }
 
 .windows95OS::before,
@@ -52,6 +74,11 @@ html {
   animation: crt-scanlines 0.1s linear infinite;
 }
 
+.windows95OS.is-off::before {
+  opacity: 0.12;
+  animation: none;
+}
+
 .windows95OS::after {
   background:
     radial-gradient(
@@ -69,6 +96,13 @@ html {
   opacity: 0.75;
 }
 
+.windows95OS.is-off::after {
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at center, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.46) 74%, rgba(0, 0, 0, 0.82) 100%);
+  opacity: 0.85;
+}
+
 .windows95OS__screen {
   position: relative;
   width: 100%;
@@ -80,6 +114,17 @@ html {
     0 0 10px rgba(160, 255, 240, 0.12);
   filter: saturate(1.08) contrast(1.04);
   overflow: hidden;
+  transition: opacity 220ms ease, filter 260ms ease;
+}
+
+.windows95OS.is-off .windows95OS__screen {
+  opacity: 0;
+  filter: blur(1px) saturate(0.1);
+}
+
+.windows95OS.is-on .windows95OS__screen {
+  opacity: 1;
+  filter: saturate(1.08) contrast(1.04);
 }
 
 .windows95OS__screen::before,
@@ -106,6 +151,11 @@ html {
   animation: crt-refresh-sweep 6.5s linear infinite 1.2s;
 }
 
+.windows95OS.is-off .windows95OS__screen::before {
+  animation: none;
+  opacity: 0;
+}
+
 .windows95OS__screen::after {
   z-index: 0;
   background:
@@ -119,6 +169,11 @@ html {
   mix-blend-mode: screen;
   opacity: 0.2;
   animation: crt-phosphor-flicker 180ms steps(2) infinite;
+}
+
+.windows95OS.is-off .windows95OS__screen::after {
+  animation: none;
+  opacity: 0;
 }
 
 .windows95OS__screen h1,

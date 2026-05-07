@@ -6,10 +6,14 @@ import Window from "./window";
 import aboutMeIcon from "../assets/icons/aboutme.png";
 import AboutMe from "./applications/aboutMe";
 
-export default function Windows95OS() {
+type Windows95OSProps = {
+  poweredOn?: boolean;
+};
+
+export default function Windows95OS({ poweredOn = false }: Windows95OSProps) {
   const [isAboutMeWindowOpen, setIsAboutMeWindowOpen] = useState(true);
   return (
-    <div className="windows95OS">
+    <div className={`windows95OS ${poweredOn ? "is-on" : "is-off"}`}>
       <div className="windows95OS__screen">
         <DesktopApp
           name="AboutMe.exe"

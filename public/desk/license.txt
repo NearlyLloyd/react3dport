@@ -1,0 +1,8 @@
+Model Information:
+* title:	Office Desk
+* source:	https://sketchfab.com/3d-models/office-desk-262aa6db90f04072a0fac9ba3b79fc0e
+* author:	oussalmonster (https://sketchfab.com/oussalmonster)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
