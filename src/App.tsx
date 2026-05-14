@@ -12,8 +12,8 @@ function App() {
     <>
     <div className="overlay">
       <div>
-      <h1>Lloyd Falltrick</h1>
-      <p>Software Engineer</p>
+      <h1><mark>Lloyd Falltrick</mark></h1>
+      <p><mark>Software Engineer</mark></p>
       </div>
     </div>  
     <div style={{ width: "100vw", height: "100vh" }}>

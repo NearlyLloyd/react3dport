@@ -33,6 +33,12 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
       duration: 1,
       ease: "power2.inOut",
     });
+    gsap.to("mark", {
+      backgroundColor: "white",
+      duration: 1,
+      ease: "power2.inOut",
+    });
+    
     gsap.delayedCall(1, () => {
       setIsCameraMoved(true);
       setIsCameraZooming(false);

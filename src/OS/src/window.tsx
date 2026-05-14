@@ -1,31 +1,83 @@
 import { useRef, type JSX } from "react";
-import Draggable from "react-draggable";
+import Draggable, {
+  type DraggableData,
+  type DraggableEvent,
+} from "react-draggable";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 
 interface WindowProps {
   onClose?: () => void;
+  onMaximise?: () => void;
+  windowSize?: { width: number; height: number };
+  windowPosition?: { x: number; y: number };
   windowTitle?: string;
   application?: JSX.Element;
+  onFocus?: () => void;
+  zIndex?: number;
+  onPositionChange?: (position: { x: number; y: number }) => void;
 }
 
-export default function Window({ onClose, windowTitle, application }: WindowProps) {
-const nodeRef = useRef(null);
+export default function Window({
+  onClose,
+  onMaximise,
+  windowSize = { width: 500, height: 500 },
+  windowPosition = { x: 80, y: -180 },
+  windowTitle,
+  application,
+  onFocus,
+  zIndex,
+  onPositionChange,
+}: WindowProps) {
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  function handleDrag(_event: DraggableEvent, data: DraggableData) {
+    onPositionChange?.({ x: data.x, y: data.y });
+  }
+
+
   return (
-    <Draggable defaultPosition={{x: 80, y: -80}} scale={1} bounds={{top:-155, bottom:280,left:-70, right:430}} handle=".window__header" nodeRef={nodeRef}>
-        <div ref={nodeRef}>
-      <div className="window">
-        <div className="window__header">
-          <div className="window__header__title">{windowTitle}</div>
-          <div className="window__header__buttons">
-            <button className="window__header__button" onClick={onClose}>
-              <b>X</b>
-            </button>
-          </div>
+    <div className="window__container">
+      <Draggable
+        position={windowPosition}
+        onDrag={handleDrag}
+        scale={1}
+        bounds={{ top: -200, bottom: windowSize.height/5, left: -20, right: 430 }}
+        handle=".window__header"
+        nodeRef={nodeRef}
+        
+      >
+        <div ref={nodeRef} style={{ zIndex }} onMouseDown={onFocus}>
+          <ResizableBox
+            className="window__frame"
+            resizeHandles={["e", "s", "se"]}
+            lockAspectRatio={false}
+            handleSize={[20, 20]}
+            axis="both"
+            width={windowSize.width}
+            height={windowSize.height}
+            draggableOpts={{ grid: [25, 25] }}
+            minConstraints={[200, 200]}
+            maxConstraints={[800, 640]}
+            transformScale={1}
+          >
+            <div className="window">
+              <div className="window__header">
+                <div className="window__header__title">{windowTitle}</div>
+                <div className="window__header__buttons">
+                  <button className="window__header__button" onClick={onMaximise}>
+                    <b>[]</b>
+                  </button>
+                  <button className="window__header__button" onClick={onClose}>
+                    <b>X</b>
+                  </button>
+                </div>
+              </div>
+              <div className="window__content">{application}</div>
+            </div>
+          </ResizableBox>
         </div>
-        <div className="window__content">
-          {application}
-        </div>
-      </div>
-      </div>
-    </Draggable>
+      </Draggable>
+    </div>
   );
 }
