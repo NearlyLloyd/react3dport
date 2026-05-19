@@ -37,12 +37,12 @@ export default function Window({
 
 
   return (
-    <div className="window__container">
       <Draggable
+        defaultClassName="window__container"
         position={windowPosition}
         onDrag={handleDrag}
         scale={1}
-        bounds={{ top: -200, bottom: 240, left: -20, right: 580}}
+        bounds={{ top: -290, bottom: 240, left: -20, right: 580}}
         handle=".window__header"
         nodeRef={nodeRef}
         
@@ -78,6 +78,5 @@ export default function Window({
           </ResizableBox>
         </div>
       </Draggable>
-    </div>
   );
 }

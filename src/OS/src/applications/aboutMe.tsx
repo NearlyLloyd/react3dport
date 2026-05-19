@@ -6,14 +6,14 @@ export default function AboutMe() {
         <h2>Software Engineer and University Student</h2>
         <p>Thank you for taking the time to take a look at my portfolio!</p>
         <p>
-          I am a Brighton based software engineer doing a Computer Science
-          degree at the University of Brighton.
+          I am a Brighton based software engineer enrolled in a Computer Science
+          degree at university.
         </p>
         <p>
           {" "}
-          Currently working at Outthink as a Software Engineer Fellow, where I
-          am developing my skills in React, TypeScript, Node.js and Cloud
-          Services like Azure. I have a passion for game development and have
+          
+          I have industry experience with React, TypeScript, Node.js and Cloud
+          Services like Azure alongside AI workflows. I have a passion for game development and have
           experience with game engines and graphics programming. I am always
           looking to learn new technologies and improve my skills, and I am
           excited to see where my career in software engineering takes me!
