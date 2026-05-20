@@ -25,7 +25,7 @@ export default function AboutMe() {
         <figure>
           <img
             className="borderedImg"
-            src="osroot\OS\assets\images\3dwebtalk.png"
+            src="src/OS/assets/images/3dwebtalk.png"
             alt="Presentation"
             width="100%"
           />
@@ -35,7 +35,7 @@ export default function AboutMe() {
         </figure>
       </div>
       <h1 style={{ textAlign: "center" }}>
-        <a href="osroot\OS\assets\Lloyd_Falltrick_CV.pdf" download>
+        <a href="src/OS/assets/Lloyd_Falltrick_CV.pdf" download>
           Download CV Here
         </a>
       </h1>
@@ -45,7 +45,7 @@ export default function AboutMe() {
         <figure>
           <img
             className="borderedImg"
-            src="osroot\OS\assets\images\drumming.jpg"
+            src="src/OS/assets/images/drumming.jpg"
             alt="Drumming"
             width="100%"
           />
@@ -60,7 +60,7 @@ export default function AboutMe() {
         <figure>
           <img
             className="borderedImg"
-            src="osroot\OS\assets\images\javaraycast3d.png"
+            src="src/OS/assets/images/javaraycast3d.png"
             alt="Java Raycast 3D"
             width="100%"
           ></img>
