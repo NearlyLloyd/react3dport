@@ -11,28 +11,28 @@ export default function AboutMe() {
         </p>
         <p>
           {" "}
-          
+
           I have industry experience with React, TypeScript, Node.js and Cloud
           Services like Azure alongside AI workflows. I have a passion for game development and have
           experience with game engines and graphics programming. I am always
           looking to learn new technologies and improve my skills, and I am
           excited to see where my career in software engineering takes me!
-          </p>
-          <p>
-            I like to participate in hackathons and local coding events, one of
-            which I even presented at.
-          </p>
-          <figure>
-            <img
-              className="borderedImg"
-              src="src\OS\assets\images\3dwebtalk.png"
-              alt="Presentation"
-              width="100%"
-            />
-            <figcaption style={{ textAlign: "center" }}>
-              Me presenting at a 3D Web Talk in Brighton.
-            </figcaption>
-          </figure>
+        </p>
+        <p>
+          I like to participate in hackathons and local coding events, one of
+          which I even presented at.
+        </p>
+        <figure>
+          <img
+            className="borderedImg"
+            src="src\OS\assets\images\3dwebtalk.png"
+            alt="Presentation"
+            width="100%"
+          />
+          <figcaption style={{ textAlign: "center" }}>
+            Me presenting at a 3D Web Talk in Brighton.
+          </figcaption>
+        </figure>
       </div>
       <h1 style={{ textAlign: "center" }}>
         <a href="src\OS\assets\Lloyd_Falltrick_CV.pdf" download>

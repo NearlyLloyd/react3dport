@@ -239,7 +239,7 @@ html {
 
 .window__frame > .react-resizable-handle-e{
   top: 0;
-  width: 12px;
+  width: 2px;
   height: 100%;
   margin-top: 0;
   transform: none;
@@ -362,7 +362,7 @@ html {
   margin: 8px;
   padding: 20px;
   padding-top: 0;
-
+  display: inline-block;
   color: #000;
   background-color: #e0e0b9;
   border-bottom: 2px solid #fff;
