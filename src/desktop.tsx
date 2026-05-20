@@ -1,6 +1,6 @@
 import { Environment, useGLTF, Html } from "@react-three/drei";
 
-import Windows95OS from "./OS/src/windows95OS";
+import Windows95OS from "./OS/osroot/Windows95OS";
 import { useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useState } from "react";
