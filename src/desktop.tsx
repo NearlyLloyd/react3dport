@@ -53,8 +53,8 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
             wrapperClass="laptop"
             position={[-0.039, 0.037, 0.38]}
             transform
-            distanceFactor={1}
-            scale={[0.101, 0.09, 1]}
+            distanceFactor={0.005}
+            scale={[20.2, 18, 100]}
             occlude={"blending"}
             rotation-x={-0.07}
             pointerEvents={isCameraMoved ? "auto" : "none"}
