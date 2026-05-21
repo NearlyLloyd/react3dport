@@ -21,8 +21,8 @@ interface WindowProps {
 export default function Window({
   onClose,
   onMaximise,
-  windowSize = { width: 500, height: 500 },
-  windowPosition = { x: 80, y: -180 },
+  windowSize = { width: 1000, height: 1000 },
+  windowPosition = { x: 80, y: -200 },
   windowTitle,
   application,
   onFocus,
@@ -41,8 +41,8 @@ export default function Window({
         defaultClassName="window__container"
         position={windowPosition}
         onDrag={handleDrag}
-        scale={1}
-        bounds={{ top: -290, bottom: 240, left: -20, right: 580}}
+        scale={0.6}
+        bounds={{ top: -390, bottom: 850, left: -20, right: 1280}}
         handle=".window__header"
         nodeRef={nodeRef}
         
@@ -57,8 +57,8 @@ export default function Window({
             width={windowSize.width}
             height={windowSize.height}
             draggableOpts={{ grid: [25, 25] }}
-            minConstraints={[200, 200]}
-            maxConstraints={[800, 640]}
+            minConstraints={[400, 400]}
+            maxConstraints={[1700, 1356]}
             transformScale={1}
           >
             <div className="window">

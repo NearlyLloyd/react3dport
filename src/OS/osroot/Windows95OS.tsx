@@ -11,35 +11,37 @@ import Experience from "./applications/experience";
 
 type Windows95OSProps = {
   poweredOn?: boolean;
+  moveCameraBack?: () => void;
 };
 
-export default function Windows95OS({ poweredOn = false }: Windows95OSProps) {
+export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windows95OSProps) {
   const [isAboutMeWindowOpen, setIsAboutMeWindowOpen] = useState(true);
   const [isProjectsWindowOpen, setIsProjectsWindowOpen] = useState(false);
   const [isExperienceWindowOpen, setIsExperienceWindowOpen] = useState(false);
+  const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [AboutMeWindowSize, setAboutMeWindowSize] = useState({
-    width: 500,
-    height: 500,
+    width: 1000,
+    height: 1000,
   });
   const [AboutMeWindowPosition, setAboutMeWindowPosition] = useState({
-    x: 80,
-    y: -180,
+    x: 350,
+    y: -220,
   });
   const [ProjectsWindowSize, setProjectsWindowSize] = useState({
-    width: 500,
-    height: 500,
+    width: 1000,
+    height: 1000,
   });
   const [ExperienceWindowSize, setExperienceWindowSize] = useState({
-    width: 500,
-    height: 500,
+    width: 1000,
+    height: 1000,
   });
   const [ProjectsWindowPosition, setProjectsWindowPosition] = useState({
-    x: 80,
+    x: 380,
     y: -180,
   });
   const [ExperienceWindowPosition, setExperienceWindowPosition] = useState({
-    x: 80,
-    y: -180,
+    x: 410,
+    y: -140,
   });
   const [windowOrder, setWindowOrder] = useState<
     Array<"aboutMe" | "projects" | "experience">
@@ -58,27 +60,27 @@ export default function Windows95OS({ poweredOn = false }: Windows95OSProps) {
   function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience") {
     switch (windowKey) {
       case "aboutMe":
-        setAboutMeWindowPosition({ x: -20, y: -290 });
+        setAboutMeWindowPosition({ x: -20, y: -390 });
         setAboutMeWindowSize((prevSize) =>
-          prevSize.width === 500
-            ? { width: 800, height: 640 }
-            : { width: 500, height: 500 },
+          prevSize.width === 1000
+            ? { width: 1700, height: 1356 }
+            : { width: 1000, height: 1000 },
         );
         break;
       case "projects":
-        setProjectsWindowPosition({ x: -20, y: -290 });
+        setProjectsWindowPosition({ x: -20, y: -390 });
         setProjectsWindowSize((prevSize) =>
-          prevSize.width === 500
-            ? { width: 800, height: 640 }
-            : { width: 500, height: 500 },
+          prevSize.width === 1000
+            ? { width: 1700, height: 1356 }
+            : { width: 1000, height: 1000 },
         );
         break;
       case "experience":
-        setExperienceWindowPosition({ x: -20, y: -290 });
+        setExperienceWindowPosition({ x: -20, y: -390 });
         setExperienceWindowSize((prevSize) =>
-          prevSize.width === 500
-            ? { width: 800, height: 640 }
-            : { width: 500, height: 500 },
+          prevSize.width === 1000
+            ? { width: 1700, height: 1356 }
+            : { width: 1000, height: 1000 },
         );
         break;
     }
@@ -147,8 +149,8 @@ export default function Windows95OS({ poweredOn = false }: Windows95OSProps) {
       windowKey === "aboutMe"
         ? isAboutMeWindowOpen
         : windowKey === "projects"
-        ? isProjectsWindowOpen
-        : isExperienceWindowOpen,
+          ? isProjectsWindowOpen
+          : isExperienceWindowOpen,
     )
     .map((windowKey) => ({
       key: windowKey,
@@ -183,15 +185,31 @@ export default function Windows95OS({ poweredOn = false }: Windows95OSProps) {
             setIsExperienceWindowOpen(true);
             bringWindowToFront("experience");
           }} />
-          
+
         {visibleWindows.map(({ key, element }) => (
           <div key={key} onMouseDown={() => bringWindowToFront(key)}>
             {element}
           </div>
         ))}
+        {isStartMenuOpen && (
+          <div id="startMenu">
+            <div style={{ backgroundColor: "red" }} className="startMenuItem" onClick={() => { setIsStartMenuOpen(false); moveCameraBack?.(); }}>
+              Log out
+            </div>
+          </div>
+        )}
 
         <div id="taskbarWrapper">
-          <div id="startButton">Start</div>
+          <div id="systemTray">
+            <div id="startButton" onClick={() => { setIsStartMenuOpen(!isStartMenuOpen); }}>
+              Start
+            </div>
+            {visibleWindows.map((i) => (
+              <div onClick={() => bringWindowToFront(i.key)} className="tray-item">{i.key}</div>
+            ))}
+          </div>
+
+
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { Environment, useGLTF, Html } from "@react-three/drei";
 
-import Windows95OS from "./OS/osroot/Windows95OS";
+import Windows95OS from "../OS/osroot/Windows95OS";
 import { useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useState } from "react";
@@ -38,9 +38,41 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
       duration: 1,
       ease: "power2.inOut",
     });
-    
+
     gsap.delayedCall(1, () => {
       setIsCameraMoved(true);
+      setIsCameraZooming(false);
+      setCanAnimateCamera(true);
+    });
+  };
+
+
+  function moveCameraBack() {
+    if (!isCameraMoved || isCameraZooming) return;
+    
+    setIsCameraZooming(true);
+    setCanAnimateCamera(false);
+    gsap.to(camera.position, {
+      x: 0.8,
+      y: 0.2,
+      z: 1.7,
+      duration: 1,
+      ease: "power2.inOut",
+    });
+    gsap.to(camera.rotation, {
+      x: -0.4,
+      y: 0.7,
+      z: 0.3,
+      duration: 1,
+      ease: "power2.inOut",
+    });
+        gsap.to("mark", {
+      backgroundColor: "black",
+      duration: 1,
+      ease: "power2.inOut",
+    });
+    gsap.delayedCall(1, () => {
+      setIsCameraMoved(false);
       setIsCameraZooming(false);
       setCanAnimateCamera(true);
     });
@@ -54,13 +86,13 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
             position={[-0.039, 0.037, 0.38]}
             transform
             distanceFactor={0.005}
-            scale={[20.2, 18, 100]}
+            scale={[9.6, 9.1, 50]}
             occlude={"blending"}
             rotation-x={-0.07}
             pointerEvents={isCameraMoved ? "auto" : "none"}
           >
             <div>
-              <Windows95OS poweredOn={isCameraMoved} />
+              <Windows95OS poweredOn={isCameraMoved} moveCameraBack={moveCameraBack} />
             </div>
           </Html>
         </primitive>

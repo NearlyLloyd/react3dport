@@ -30,7 +30,7 @@ export default function AboutMe() {
             width="100%"
           />
           <figcaption style={{ textAlign: "center" }}>
-            Me presenting at a 3D Web Talk in Brighton.
+            Me presenting at a web talk in Brighton.
           </figcaption>
         </figure>
       </div>

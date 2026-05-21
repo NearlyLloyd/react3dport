@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import Desktop from "./desktop";
+import Desktop from "./models/desktop";
 import "./App.css";
-import Desk from "./desk";
+import Desk from "./models/desk";
 import CameraFollowMouse from "./cameracontrols";
 import { useState } from "react";
 
@@ -30,7 +30,6 @@ function App() {
 
         >
           <Desktop setCanAnimateCamera={setCanAnimateCamera} />
-
           <Desk />
           <CameraFollowMouse enabled={canAnimateCamera} />
         </Canvas>

@@ -16,9 +16,10 @@ html {
 
 .windows95OS {
   position: relative;
-  width: 800px;
-  height: 678px;
+  width: 1700px;
+  height: 1356px;
   background-color: #008080;
+  font-size:x-large;
   border: 1px solid #585858;
   box-shadow:
     0 0 0.1em rgba(0, 0, 0, 0.5),
@@ -44,8 +45,7 @@ html {
     0 0 0.1em rgba(0, 0, 0, 0.65),
     0 0 30px rgba(0, 0, 0, 0.55),
     inset 0 0 24px rgba(0, 0, 0, 0.8);
-  width: 850px;
-  height: 700px;
+
   filter: saturate(0.45) brightness(0.4);
 }
 
@@ -188,9 +188,9 @@ html {
 .desktopApp {
   text-align: center;
   color: white;
-  font-size: 12px;
-  width: 76px;
-  height: 86px;
+  font-size: 20px;
+  width: 96px;
+  height: 120px;
   border: 2px dotted transparent;
 }
 
@@ -201,12 +201,14 @@ html {
 
 .window__container {
   position: absolute;
+  text-align: center;
 }
 
 .window {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   box-sizing: border-box;
   background-color: #c0c0c0;
   border-top: 4px solid #fff;
@@ -253,7 +255,7 @@ html {
 }
 
 .window__header {
-  height: 25px;
+  height: 35px;
   width: 100%;
   background-color: #000080;
   color: white;
@@ -265,7 +267,7 @@ html {
 }
 
 .window__header .window__title {
-  font-size: 14px;
+  font-size: 24px;
 }
 
 .window__header .window__close {
@@ -292,7 +294,7 @@ html {
 }
 
 .window__content::-webkit-scrollbar {
-  width: 10px;
+  width: 15px;
   background: #929292;
 }
 
@@ -315,7 +317,7 @@ html {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40px;
+  height: 60px;
   background-color: #c0c0c0;
   border-top: 2px solid #fff;
   border-bottom: 2px solid #808080;
@@ -333,8 +335,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 25px;
   text-align: center;
   gap: 4px;
   background-color: #c0c0c0;
@@ -354,10 +356,12 @@ html {
 }
 
 .textWrapper {
-  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
   padding: 20px;
   padding-top: 0;
-  display: inline-block;
   color: #000;
   background-color: #e0e0b9;
   border-bottom: 2px solid #fff;
@@ -366,12 +370,28 @@ html {
   border-top: 2px solid #000000;
 }
 
-#startButton {
-  display: inline-flex;
+.tray-item {
+  display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  width: 100px;
+  height: 40px;
+  font-size: smaller;
+  background-color: #c0c0c0;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  cursor: pointer;
+}
+
+#startButton {
+  display: flex;
   width: 40px;
-  height: 20px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
   padding: 4px 8px;
   background-color: #c0c0c0;
   border-top: 2px solid #fff;
@@ -381,6 +401,35 @@ html {
   font-size: 14px;
   color: #000;
   cursor: pointer;
+}
+#startMenu{
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  width: 200px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #808080;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  z-index: 4;
+}
+.startMenuItem {
+  padding: 8px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  background-color: #c0c0c0;
+  cursor: pointer;
+}
+#systemTray {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+  padding-left: 8px;
 }
 
 @keyframes crt-refresh-sweep {

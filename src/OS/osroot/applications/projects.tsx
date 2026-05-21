@@ -21,7 +21,14 @@ export function Projects() {
         <p>This data would be ready to be fed into a machine learning model to predict the region a given wine came from.</p>
       </div>
       {/*VNA Search The collection*/}
+      <div className="textWrapper">
+        <h2>VNA Search Engine</h2>
+        <p>REST api frontend for the VNA</p>
+        <p>SAYT(Search As You Type) functionality and filtered responses for optimal user experience.</p>
+        <img width="100%" className="borderedImg" src="/images/projects/vnasearch/VNAsearch.png" alt="VNA Search Engine" />
+      </div>
       {/* 3D Raycast Renderer*/}
+      
       {/* Game Prototypes: */}
       <div className="textWrapper">
         <h2>Game Prototypes</h2>
