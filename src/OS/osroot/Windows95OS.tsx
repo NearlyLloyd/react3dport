@@ -6,6 +6,7 @@ import aboutMeIcon from "../assets/icons/aboutme.png";
 import projectsIcon from "../assets/icons/projectsicon.png";
 import experienceIcon from "../assets/icons/experience.png";
 import paintIcon from "../assets/icons/paint.png";
+import snakeIcon from "../assets/icons/snake.png";
 import AboutMe from "./applications/aboutMe";
 import { Projects } from "./applications/projects";
 import Experience from "./applications/experience";
@@ -28,7 +29,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [PaintWindowPosition, setPaintWindowPosition] = useState({
     x: 440,
-    y: -100,
+    y: -300,
   });
   const [AboutMeWindowSize, setAboutMeWindowSize] = useState({
     width: 1000,
@@ -36,7 +37,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [AboutMeWindowPosition, setAboutMeWindowPosition] = useState({
     x: 350,
-    y: -220,
+    y: -420,
   });
   const [ProjectsWindowSize, setProjectsWindowSize] = useState({
     width: 1000,
@@ -48,11 +49,11 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [ProjectsWindowPosition, setProjectsWindowPosition] = useState({
     x: 380,
-    y: -180,
+    y: -380,
   });
   const [ExperienceWindowPosition, setExperienceWindowPosition] = useState({
     x: 410,
-    y: -140,
+    y: -340,
   });
   const [windowOrder, setWindowOrder] = useState<
     Array<"aboutMe" | "projects" | "experience" | "paint">
