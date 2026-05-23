@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Window from "../window";
 
 export function Paint() {
 

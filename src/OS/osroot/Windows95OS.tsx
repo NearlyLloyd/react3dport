@@ -6,7 +6,7 @@ import aboutMeIcon from "../assets/icons/aboutme.png";
 import projectsIcon from "../assets/icons/projectsicon.png";
 import experienceIcon from "../assets/icons/experience.png";
 import paintIcon from "../assets/icons/paint.png";
-import snakeIcon from "../assets/icons/snake.png";
+// import snakeIcon from "../assets/icons/snake.png";
 import AboutMe from "./applications/aboutMe";
 import { Projects } from "./applications/projects";
 import Experience from "./applications/experience";
