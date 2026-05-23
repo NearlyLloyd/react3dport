@@ -42,7 +42,7 @@ export default function Window({
         position={windowPosition}
         onDrag={handleDrag}
         scale={0.6}
-        bounds={{ top: -390, bottom: 850, left: -20, right: 1280}}
+        bounds={{ top: -520, bottom: 800, left: -20, right: 1280}}
         handle=".window__header"
         nodeRef={nodeRef}
         

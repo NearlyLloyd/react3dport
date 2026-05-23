@@ -4,10 +4,12 @@ import DesktopApp from "./desktopapp";
 import Window from "./window";
 import aboutMeIcon from "../assets/icons/aboutme.png";
 import projectsIcon from "../assets/icons/projectsicon.png";
-import experienceIcon from "../assets/icons/experience.png"
+import experienceIcon from "../assets/icons/experience.png";
+import paintIcon from "../assets/icons/paint.png";
 import AboutMe from "./applications/aboutMe";
 import { Projects } from "./applications/projects";
 import Experience from "./applications/experience";
+import { Paint } from "./applications/paint";
 
 type Windows95OSProps = {
   poweredOn?: boolean;
@@ -19,6 +21,15 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   const [isProjectsWindowOpen, setIsProjectsWindowOpen] = useState(false);
   const [isExperienceWindowOpen, setIsExperienceWindowOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+  const [isPaintWindowOpen, setIsPaintWindowOpen] = useState(false);
+  const [PaintWindowSize, setPaintWindowSize] = useState({
+    width: 1000,
+    height: 1000,
+  });
+  const [PaintWindowPosition, setPaintWindowPosition] = useState({
+    x: 440,
+    y: -100,
+  });
   const [AboutMeWindowSize, setAboutMeWindowSize] = useState({
     width: 1000,
     height: 1000,
@@ -44,23 +55,23 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
     y: -140,
   });
   const [windowOrder, setWindowOrder] = useState<
-    Array<"aboutMe" | "projects" | "experience">
+    Array<"aboutMe" | "projects" | "experience" | "paint">
   >(["aboutMe"]);
 
 
 
 
-  function bringWindowToFront(windowKey: "aboutMe" | "projects" | "experience") {
+  function bringWindowToFront(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
     setWindowOrder((prevOrder) => {
       const nextOrder = prevOrder.filter((key) => key !== windowKey);
       return [...nextOrder, windowKey];
     });
   }
 
-  function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience") {
+  function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
     switch (windowKey) {
       case "aboutMe":
-        setAboutMeWindowPosition({ x: -20, y: -390 });
+        setAboutMeWindowPosition({ x: -20, y: -520 });
         setAboutMeWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -68,7 +79,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "projects":
-        setProjectsWindowPosition({ x: -20, y: -390 });
+        setProjectsWindowPosition({ x: -20, y: -520 });
         setProjectsWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -76,8 +87,16 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "experience":
-        setExperienceWindowPosition({ x: -20, y: -390 });
+        setExperienceWindowPosition({ x: -20, y: -520 });
         setExperienceWindowSize((prevSize) =>
+          prevSize.width === 1000
+            ? { width: 1700, height: 1356 }
+            : { width: 1000, height: 1000 },
+        );
+        break;
+      case "paint":
+        setPaintWindowPosition({ x: -20, y: -520 });
+        setPaintWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
             : { width: 1000, height: 1000 },
@@ -86,7 +105,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
     }
   }
 
-  function handleWindowClose(windowKey: "aboutMe" | "projects" | "experience") {
+  function handleWindowClose(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
     switch (windowKey) {
       case "aboutMe":
         setIsAboutMeWindowOpen(false);
@@ -96,6 +115,9 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         break;
       case "experience":
         setIsExperienceWindowOpen(false);
+        break;
+      case "paint":
+        setIsPaintWindowOpen(false);
         break;
     }
 
@@ -142,19 +164,48 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         onPositionChange={setExperienceWindowPosition}
       />
     ),
+    paint: (
+      <Window
+        application={<Paint />}
+        windowTitle="Paint.exe"
+        onClose={() => handleWindowClose("paint")}
+        onMaximise={() => handleWindowMaximise("paint")}
+        onFocus={() => bringWindowToFront("paint")}
+        zIndex={windowOrder.indexOf("paint") + 1}
+        windowSize={PaintWindowSize}
+        windowPosition={PaintWindowPosition}
+        onPositionChange={setPaintWindowPosition}
+      />
+    )
   };
 
   const visibleWindows = windowOrder
-    .filter((windowKey) =>
-      windowKey === "aboutMe"
-        ? isAboutMeWindowOpen
-        : windowKey === "projects"
-          ? isProjectsWindowOpen
-          : isExperienceWindowOpen,
+    .filter((windowKey) => {
+      switch (windowKey) {
+        case "aboutMe":
+          return isAboutMeWindowOpen;
+        case "projects":
+          return isProjectsWindowOpen;
+        case "experience":
+          return isExperienceWindowOpen;
+        case "paint":
+          return isPaintWindowOpen;
+        default:
+          return false;
+      }
+    }
     )
     .map((windowKey) => ({
       key: windowKey,
       element: windowComponents[windowKey],
+      icon:
+        windowKey === "aboutMe"
+          ? aboutMeIcon
+          : windowKey === "projects"
+            ? projectsIcon
+            : windowKey === "experience"
+              ? experienceIcon
+              : paintIcon,
     }));
 
   return (
@@ -185,6 +236,14 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
             setIsExperienceWindowOpen(true);
             bringWindowToFront("experience");
           }} />
+        <DesktopApp
+          name="paint"
+          icon={paintIcon}
+          onClick={() => {
+            setIsPaintWindowOpen(true);
+            bringWindowToFront("paint");
+          }}
+        />
 
         {visibleWindows.map(({ key, element }) => (
           <div key={key} onMouseDown={() => bringWindowToFront(key)}>
@@ -205,11 +264,12 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
               Start
             </div>
             {visibleWindows.map((i) => (
-              <div onClick={() => bringWindowToFront(i.key)} className="tray-item">{i.key}</div>
+              <div onClick={() => bringWindowToFront(i.key)} className="tray-item">
+                <img width="24" height="24" src={i.icon} alt={i.key} style={{ marginRight: "5px" }} />
+                {i.key}
+              </div>
             ))}
           </div>
-
-
         </div>
       </div>
     </div>
