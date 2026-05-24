@@ -31,8 +31,8 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
     height: 1000,
   });
   const [SnakeWindowPosition, setSnakeWindowPosition] = useState({
-    x: 410,
-    y: -340,
+    x: 480,
+    y: -380,
   });
 
 
@@ -43,7 +43,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [PaintWindowPosition, setPaintWindowPosition] = useState({
     x: 440,
-    y: -300,
+    y: -420,
   });
   const [AboutMeWindowSize, setAboutMeWindowSize] = useState({
     width: 1000,
@@ -51,7 +51,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [AboutMeWindowPosition, setAboutMeWindowPosition] = useState({
     x: 350,
-    y: -420,
+    y: -540,
   });
   const [ProjectsWindowSize, setProjectsWindowSize] = useState({
     width: 1000,
@@ -63,11 +63,11 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   });
   const [ProjectsWindowPosition, setProjectsWindowPosition] = useState({
     x: 380,
-    y: -380,
+    y: -500,
   });
   const [ExperienceWindowPosition, setExperienceWindowPosition] = useState({
     x: 410,
-    y: -340,
+    y: -460,
   });
   const [windowOrder, setWindowOrder] = useState<
     Array<"aboutMe" | "projects" | "experience" | "paint" | "snake">
@@ -86,7 +86,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience" | "paint" | "snake") {
     switch (windowKey) {
       case "aboutMe":
-        setAboutMeWindowPosition({ x: -20, y: -520 });
+        setAboutMeWindowPosition({ x: -20, y: -640 });
         setAboutMeWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -94,7 +94,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "projects":
-        setProjectsWindowPosition({ x: -20, y: -520 });
+        setProjectsWindowPosition({ x: -20, y: -640 });
         setProjectsWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -102,7 +102,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "experience":
-        setExperienceWindowPosition({ x: -20, y: -520 });
+        setExperienceWindowPosition({ x: -20, y: -640 });
         setExperienceWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -110,7 +110,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "paint":
-        setPaintWindowPosition({ x: -20, y: -520 });
+        setPaintWindowPosition({ x: -20, y: -640 });
         setPaintWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
@@ -118,7 +118,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         );
         break;
       case "snake":
-        setSnakeWindowPosition({ x: -20, y: -520 });
+        setSnakeWindowPosition({ x: -20, y: -640 });
         setSnakeWindowSize((prevSize) =>
           prevSize.width === 1000
             ? { width: 1700, height: 1356 }
