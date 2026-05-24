@@ -6,11 +6,12 @@ import aboutMeIcon from "../assets/icons/aboutme.png";
 import projectsIcon from "../assets/icons/projectsicon.png";
 import experienceIcon from "../assets/icons/experience.png";
 import paintIcon from "../assets/icons/paint.png";
-// import snakeIcon from "../assets/icons/snake.png";
+import snakeIcon from "../assets/icons/snake.png";
 import AboutMe from "./applications/aboutMe";
 import { Projects } from "./applications/projects";
 import Experience from "./applications/experience";
 import { Paint } from "./applications/paint";
+import { Snake } from "./applications/snake";
 
 type Windows95OSProps = {
   poweredOn?: boolean;
@@ -23,6 +24,19 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   const [isExperienceWindowOpen, setIsExperienceWindowOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isPaintWindowOpen, setIsPaintWindowOpen] = useState(false);
+  const [isSnakeWindowOpen, setIsSnakeWindowOpen] = useState(false);
+
+  const [SnakeWindowSize, setSnakeWindowSize] = useState({
+    width: 1000,
+    height: 1000,
+  });
+  const [SnakeWindowPosition, setSnakeWindowPosition] = useState({
+    x: 410,
+    y: -340,
+  });
+
+
+
   const [PaintWindowSize, setPaintWindowSize] = useState({
     width: 1000,
     height: 1000,
@@ -56,20 +70,20 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
     y: -340,
   });
   const [windowOrder, setWindowOrder] = useState<
-    Array<"aboutMe" | "projects" | "experience" | "paint">
+    Array<"aboutMe" | "projects" | "experience" | "paint" | "snake">
   >(["aboutMe"]);
 
 
 
 
-  function bringWindowToFront(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
+  function bringWindowToFront(windowKey: "aboutMe" | "projects" | "experience" | "paint" | "snake") {
     setWindowOrder((prevOrder) => {
       const nextOrder = prevOrder.filter((key) => key !== windowKey);
       return [...nextOrder, windowKey];
     });
   }
 
-  function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
+  function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience" | "paint" | "snake") {
     switch (windowKey) {
       case "aboutMe":
         setAboutMeWindowPosition({ x: -20, y: -520 });
@@ -103,10 +117,18 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
             : { width: 1000, height: 1000 },
         );
         break;
+      case "snake":
+        setSnakeWindowPosition({ x: -20, y: -520 });
+        setSnakeWindowSize((prevSize) =>
+          prevSize.width === 1000
+            ? { width: 1700, height: 1356 }
+            : { width: 1000, height: 1000 },
+        );
+        break;
     }
   }
 
-  function handleWindowClose(windowKey: "aboutMe" | "projects" | "experience" | "paint") {
+  function handleWindowClose(windowKey: "aboutMe" | "projects" | "experience" | "paint" | "snake") {
     switch (windowKey) {
       case "aboutMe":
         setIsAboutMeWindowOpen(false);
@@ -119,6 +141,9 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         break;
       case "paint":
         setIsPaintWindowOpen(false);
+        break;
+      case "snake":
+        setIsSnakeWindowOpen(false);
         break;
     }
 
@@ -177,6 +202,19 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         windowPosition={PaintWindowPosition}
         onPositionChange={setPaintWindowPosition}
       />
+    ),
+    snake: (
+      <Window
+        application={<Snake />}
+        windowTitle="Snake.exe"
+        onClose={() => handleWindowClose("snake")}
+        onMaximise={() => handleWindowMaximise("snake")}
+        onFocus={() => bringWindowToFront("snake")}
+        zIndex={windowOrder.indexOf("snake") + 1}
+        windowSize={SnakeWindowSize}
+        windowPosition={SnakeWindowPosition}
+        onPositionChange={setSnakeWindowPosition}
+      />
     )
   };
 
@@ -191,6 +229,8 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
           return isExperienceWindowOpen;
         case "paint":
           return isPaintWindowOpen;
+        case "snake":
+          return isSnakeWindowOpen;
         default:
           return false;
       }
@@ -206,14 +246,16 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
             ? projectsIcon
             : windowKey === "experience"
               ? experienceIcon
-              : paintIcon,
+              : windowKey === "paint"
+                ? paintIcon
+                : snakeIcon,
     }));
 
   return (
     <div className={`windows95OS ${poweredOn ? "is-on" : "is-off"}`}>
       <div className="windows95OS__screen">
         <DesktopApp
-          name="AboutMe.exe"
+          name="AboutMe"
           icon={aboutMeIcon}
           onClick={() => {
             setIsAboutMeWindowOpen(true);
@@ -222,7 +264,7 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
         />
 
         <DesktopApp
-          name="Projects.exe"
+          name="Projects"
           icon={projectsIcon}
           onClick={() => {
             setIsProjectsWindowOpen(true);
@@ -243,6 +285,14 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
           onClick={() => {
             setIsPaintWindowOpen(true);
             bringWindowToFront("paint");
+          }}
+        />
+        <DesktopApp
+          name="snake"
+          icon={snakeIcon}
+          onClick={() => {
+            setIsSnakeWindowOpen(true);
+            bringWindowToFront("snake");
           }}
         />
 
