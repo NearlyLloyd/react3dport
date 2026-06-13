@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+const DEFAULT_COLORS = ["black", "white", "red", "blue", "green", "yellow", "purple", "pink"];
+
 export function Paint() {
 
 
@@ -12,7 +14,7 @@ export function Paint() {
     const [canRedo, setCanRedo] = useState(false);
     const maxHistory = 20;
     const [brushSize, setBrushSize] = useState(10);
-    const [color, setColor] = useState("black");
+    const [color, setColor] = useState(DEFAULT_COLORS[0]);
     const [tool, setTool] = useState("Pencil");
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -21,6 +23,87 @@ export function Paint() {
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }, []);
+
+    function CustomSelect<T extends string | number>(props: {
+        options: T[];
+        value: T;
+        onChange: (v: T) => void;
+        style?: React.CSSProperties;
+        id?: string;
+    }) {
+        const { options, value, onChange, style, id } = props;
+        const [open, setOpen] = useState(false);
+        const [hovered, setHovered] = useState<T | null>(null);
+        const ref = useRef<HTMLDivElement | null>(null);
+        useEffect(() => {
+            const handle = (e: MouseEvent) => {
+                if (!ref.current) return;
+                if (!ref.current.contains(e.target as Node)) setOpen(false);
+            };
+            window.addEventListener('mousedown', handle);
+            return () => window.removeEventListener('mousedown', handle);
+        }, []);
+        return (
+            <div ref={ref} style={{ display: 'inline-block', position: 'relative' }} id={id}>
+                <button
+                    onClick={() => setOpen((s) => !s)}
+                    style={{ fontSize: 25, margin: 5, padding: '4px 10px', cursor: 'pointer', ...style }}
+                    aria-haspopup="listbox"
+                    aria-expanded={open}
+                >
+                    {String(value)}
+                </button>
+                {open && (
+                    <ul
+                        role="listbox"
+                        style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: '100%',
+                            background: '#fff',
+                            border: '2px solid #000',
+                            margin: 0,
+                            padding: 0,
+                            listStyle: 'none',
+                            zIndex: 10000,
+                            boxSizing: 'border-box',
+                            minWidth: '100%',
+                        }}
+                    >
+                        {options.map((opt) => (
+                            <li
+                                key={String(opt)}
+                                role="option"
+                                onClick={() => {
+                                    onChange(opt as T);
+                                    setOpen(false);
+                                }}
+                                onMouseEnter={() => setHovered(opt)}
+                                onMouseLeave={() => setHovered(null)}
+                                style={{ padding: '6px 10px', cursor: 'pointer', background: hovered === opt ? '#e0e0e0' : 'transparent' }}
+                            >
+                                {String(opt)}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
+    }
+
+
+    function InlineColorSidebar(props: { colors: string[]; value: string; onChange: (c: string) => void }) {
+        const { colors, value, onChange } = props;
+        return (
+            <div style={{ width: 112, padding: 8, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, background: '#c0c0c0', borderTop: '4px solid #fff', borderLeft: '4px solid #fff', borderRight: '2px solid #000', borderBottom: '2px solid #000' }}>
+                <div style={{ width: '100%', display: 'grid', gridTemplateColumns: 'repeat(2, 40px)', gap: 8, justifyContent: 'center' }}>
+                    {colors.map((c, i) => (
+                        <button key={i} type="button" onClick={() => onChange(c)} title={c} style={{ width: 40, height: 24, background: c, cursor: 'pointer', boxSizing: 'border-box', borderTop: '2px solid #fff', borderLeft: '2px solid #fff', borderRight: '2px solid #000', borderBottom: '2px solid #000', padding: 0 }} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
 
     const getCanvasCoords = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const canvas = canvasRef.current;
@@ -72,20 +155,20 @@ export function Paint() {
             }
             return;
         }
-        if(tool === "Smiley") {
+        if (tool === "Smiley") {
             ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(pos.x, pos.y, brushSize, 0, Math.PI * 2);
             ctx.fill();
-                ctx.beginPath();
-                ctx.arc(pos.x - brushSize / 3, pos.y - brushSize / 3, brushSize / 5, 0, Math.PI * 2);
-                ctx.arc(pos.x + brushSize / 3, pos.y - brushSize / 3, brushSize / 5, 0, Math.PI * 2);
-                ctx.fillStyle = "white";
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y + brushSize / 3, brushSize / 2.5, 0, Math.PI);
-                ctx.fillStyle = "white";
-                ctx.fill();
+            ctx.beginPath();
+            ctx.arc(pos.x - brushSize / 3, pos.y - brushSize / 3, brushSize / 5, 0, Math.PI * 2);
+            ctx.arc(pos.x + brushSize / 3, pos.y - brushSize / 3, brushSize / 5, 0, Math.PI * 2);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y + brushSize / 3, brushSize / 2.5, 0, Math.PI);
+            ctx.fillStyle = "white";
+            ctx.fill();
             return;
         }
         ctx.strokeStyle = color;
@@ -203,45 +286,27 @@ export function Paint() {
     };
     return (
         <>
-            <div style={{ width: "100%", height: "50px", backgroundColor: "rgb(0, 0, 0, 0.2)", margin: "0 0 20px 0", textAlign: "center" }}>
-                <label htmlFor="Brushsize" style={{ marginRight: "10px", fontSize: "25px" }}>Size:</label>
-                <select style={{ fontSize: "25px", margin: "5px" }} id="Brushsize" value={brushSize} onChange={(e) => setBrushSize(Number(e.target.value))}>
-                    <option style={{ fontSize: "15px" }}>2</option>
-                    <option style={{ fontSize: "15px" }}>5</option>
-                    <option style={{ fontSize: "15px" }}>10</option>
-                    <option style={{ fontSize: "15px" }}>20</option>
-                    <option style={{ fontSize: "15px" }}>30</option>
-                    <option style={{ fontSize: "15px" }}>50</option>
-                </select>
-                <label htmlFor="Color" style={{ marginRight: "10px", fontSize: "25px" }}>Color:</label>
-                <select style={{ fontSize: "25px", margin: "5px" }} id="Color" value={color} onChange={(e) => setColor(e.target.value)}>
-                    <option style={{ fontSize: "15px" }}>black</option>
-                    <option style={{ fontSize: "15px" }}>white</option>
-                    <option style={{ fontSize: "15px" }}>red</option>
-                    <option style={{ fontSize: "15px" }}>blue</option>
-                    <option style={{ fontSize: "15px" }}>green</option>
-                    <option style={{ fontSize: "15px" }}>yellow</option>
-                    <option style={{ fontSize: "15px" }}>purple</option>
-                    <option style={{ fontSize: "15px" }}>pink</option>
-                </select>
-                <label htmlFor="Tool" style={{ marginRight: "10px", fontSize: "25px" }}>Tool:</label>
-                <select style={{ fontSize: "25px", margin: "5px" }} id="Tool" value={tool} onChange={(e) => setTool(e.target.value)}>
-                    <option style={{ fontSize: "15px" }}>Pencil</option>
-                    <option style={{ fontSize: "15px" }}>Spray Can</option>
-                    <option style={{ fontSize: "15px" }}>Smiley</option>
-                </select>
-
+            <div style={{ display: 'flex', gap: 16 }}>
+                <InlineColorSidebar colors={DEFAULT_COLORS} value={color} onChange={(c) => setColor(c)} />
+                <div style={{ flex: 1 }}>
+                    <div style={{ width: "100%", height: "50px", backgroundColor: "rgb(0, 0, 0, 0.2)", margin: "0 0 20px 0", textAlign: "center" }}>
+                        <label htmlFor="Brushsize" style={{ marginRight: "10px", fontSize: "25px" }}>Size:</label>
+                        <CustomSelect id="Brushsize" options={[2, 5, 10, 20, 30, 50]} value={brushSize} onChange={(v) => setBrushSize(Number(v))} />
+                        <label htmlFor="Tool" style={{ marginRight: "10px", fontSize: "25px" }}>Tool:</label>
+                        <CustomSelect id="Tool" options={["Pencil", "Spray Can", "Smiley"]} value={tool} onChange={(v) => setTool(String(v))} />
+                    </div>
+                    <canvas
+                        ref={canvasRef}
+                        width={800}
+                        height={600}
+                        style={{ border: "1px solid black", cursor: "crosshair" }}
+                        onMouseDown={startDrawing}
+                        onMouseMove={draw}
+                        onMouseUp={stopDrawing}
+                        onMouseLeave={stopDrawing}
+                    />
+                </div>
             </div>
-            <canvas
-                ref={canvasRef}
-                width={800}
-                height={600}
-                style={{ border: "1px solid black", cursor: "crosshair" }}
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={stopDrawing}
-                onMouseLeave={stopDrawing}
-            />
             <br></br>
             <button onClick={clearCanvas} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px" }}>Clear</button>
             <button onClick={undo} disabled={!canUndo} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px", marginLeft: "10px" }}>Undo</button>
