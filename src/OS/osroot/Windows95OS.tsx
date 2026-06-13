@@ -86,42 +86,42 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
   function handleWindowMaximise(windowKey: "aboutMe" | "projects" | "experience" | "paint" | "snake") {
     switch (windowKey) {
       case "aboutMe":
-        setAboutMeWindowPosition({ x: -20, y: -640 });
+        setAboutMeWindowPosition({ x: -20, y: -627});
         setAboutMeWindowSize((prevSize) =>
           prevSize.width === 1000
-            ? { width: 1700, height: 1356 }
+            ? { width: 1690, height: 1278 }
             : { width: 1000, height: 1000 },
         );
         break;
       case "projects":
-        setProjectsWindowPosition({ x: -20, y: -640 });
+        setProjectsWindowPosition({ x: -20, y: -627 });
         setProjectsWindowSize((prevSize) =>
           prevSize.width === 1000
-            ? { width: 1700, height: 1356 }
+            ? { width: 1690, height: 1278 }
             : { width: 1000, height: 1000 },
         );
         break;
       case "experience":
-        setExperienceWindowPosition({ x: -20, y: -640 });
+        setExperienceWindowPosition({ x: -20, y: -627 });
         setExperienceWindowSize((prevSize) =>
           prevSize.width === 1000
-            ? { width: 1700, height: 1356 }
+            ? { width: 1690, height: 1278 }
             : { width: 1000, height: 1000 },
         );
         break;
       case "paint":
-        setPaintWindowPosition({ x: -20, y: -640 });
+        setPaintWindowPosition({ x: -20, y: -627 });
         setPaintWindowSize((prevSize) =>
           prevSize.width === 1000
-            ? { width: 1700, height: 1356 }
+            ? { width: 1690, height: 1278 }
             : { width: 1000, height: 1000 },
         );
         break;
       case "snake":
-        setSnakeWindowPosition({ x: -20, y: -640 });
+        setSnakeWindowPosition({ x: -20, y: -627 });
         setSnakeWindowSize((prevSize) =>
           prevSize.width === 1000
-            ? { width: 1700, height: 1356 }
+            ? { width: 1690, height: 1278 }
             : { width: 1000, height: 1000 },
         );
         break;

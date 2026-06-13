@@ -14,20 +14,20 @@ html {
   border-right: 3px solid #fff;
 }
 
-.windows95OS {
+.windows95OS {  
   position: relative;
   width: 1700px;
   height: 1356px;
   background-color: #008080;
   font-size:x-large;
-  border: 1px solid #585858;
+  border: 1px solid #000000;
   box-shadow:
     0 0 0.1em rgba(0, 0, 0, 0.5),
     0 0 40px rgba(0, 0, 0, 0.45),
     inset 0 0 24px rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  isolation: isolate;
-  transform: perspective(1400px) rotateX(0.6deg) scale(1.002);
+  /* isolation: isolate; */
+  /* transform: perspective(1400px) rotateX(0.6deg) scale(1.002); */
   transition:
     background-color 300ms ease,
     box-shadow 300ms ease,
@@ -162,7 +162,7 @@ html {
 }
 
 .windows95OS__screen::after {
-  z-index: 998;
+  z-index: 0;
   background:
     linear-gradient(90deg, rgba(255, 50, 50, 0.045), rgba(255, 50, 50, 0) 28%),
     linear-gradient(90deg,

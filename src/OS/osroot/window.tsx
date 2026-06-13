@@ -42,7 +42,7 @@ export default function Window({
         position={windowPosition}
         onDrag={handleDrag}
         scale={0.6}
-        bounds={{ top: -640, bottom: 600, left: -20, right: 1280}}
+        bounds={{ top: -625, bottom: 600, left: -20, right: 1280}}
         handle=".window__header"
         nodeRef={nodeRef}
         
@@ -58,7 +58,7 @@ export default function Window({
             height={windowSize.height}
             draggableOpts={{ grid: [25, 25] }}
             minConstraints={[400, 400]}
-            maxConstraints={[1700, 1356]}
+            maxConstraints={[1690, 1278]}
             transformScale={1}
           >
             <div className="window">

@@ -86,9 +86,9 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
         <Html
           className="laptop"
           transform
-          position={[0.001, -0.002, 0]}
+          position={[0, -0.002, 0]}
           distanceFactor={0.005}
-          scale={[9.6, 9.1, 50]}
+          scale={[9.5, 9.1, 50]}
           occlude={"blending"}
           rotation-x={-0.07}
           pointerEvents={isCameraMoved ? "auto" : "none"}
