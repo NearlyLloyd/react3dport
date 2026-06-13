@@ -1,7 +1,7 @@
-import { Environment, useGLTF, Html } from "@react-three/drei";
+import { Environment, useGLTF, Html, OrthographicCamera, CameraControls } from "@react-three/drei";
 
 import Windows95OS from "../OS/osroot/Windows95OS";
-import { useThree } from "@react-three/fiber";
+import { invalidate, useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useState } from "react";
 
@@ -14,15 +14,14 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
   const [isCameraMoved, setIsCameraMoved] = useState(false);
   const [isCameraZooming, setIsCameraZooming] = useState(false);
   const { camera } = useThree();
-
   const moveCamera = () => {
     if (isCameraMoved || isCameraZooming) return;
     setIsCameraZooming(true);
     setCanAnimateCamera(false);
     gsap.to(camera.position, {
-      x: -0.043,
-      y: 0.04,
-      z: 1,
+      x: -0.0,
+      y: 0.03,
+      z: 0.3,
       duration: 1,
       ease: "power2.inOut",
     });
@@ -55,7 +54,7 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
     gsap.to(camera.position, {
       x: 0.8,
       y: 0.2,
-      z: 1.7,
+      z: 1.3,
       duration: 1,
       ease: "power2.inOut",
     });
@@ -66,7 +65,7 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
       duration: 1,
       ease: "power2.inOut",
     });
-        gsap.to("mark", {
+    gsap.to("mark", {
       backgroundColor: "black",
       duration: 1,
       ease: "power2.inOut",
@@ -79,24 +78,27 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
   };
   return (
     <>
-      <mesh position={[0, 0, 0.45]} scale={1} onClick={moveCamera}>
+
+      <mesh position={[-0, 0.02, 0.1]} scale={1} onClick={moveCamera}>
         <primitive object={laptop.scene}>
-          <Html
-            wrapperClass="laptop"
-            position={[-0.039, 0.037, 0.38]}
-            transform
-            distanceFactor={0.005}
-            scale={[9.6, 9.1, 50]}
-            occlude={"blending"}
-            rotation-x={-0.07}
-            pointerEvents={isCameraMoved ? "auto" : "none"}
-          >
-            <div>
-              <Windows95OS poweredOn={isCameraMoved} moveCameraBack={moveCameraBack} />
-            </div>
-          </Html>
+
         </primitive>
+        <Html
+          className="laptop"
+          transform
+          position={[0.001, -0.002, 0]}
+          distanceFactor={0.005}
+          scale={[9.6, 9.1, 50]}
+          occlude={"blending"}
+          rotation-x={-0.07}
+          pointerEvents={isCameraMoved ? "auto" : "none"}
+        >
+          <div>
+            <Windows95OS poweredOn={isCameraMoved} moveCameraBack={moveCameraBack} />
+          </div>
+        </Html>
       </mesh>
+
 
       <Environment preset="city" />
     </>

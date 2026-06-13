@@ -32,6 +32,85 @@ mark {
   margin-top: -0.5rem;
 }
 
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #008080;
+  z-index: 9999;
+  padding: 24px;
+}
+
+.loading-window {
+  width: min(480px, 100%);
+  background: #c0c0c0;
+  border-top: 4px solid #ffffff;
+  border-left: 4px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loading-window__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #000080;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+
+
+.loading-window__body {
+  padding: 16px;
+  background: #c0c0c0;
+  color: #000000;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.loading-headline {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.progress-box {
+  margin-top: 18px;
+}
+
+.progress-track {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background: #808080;
+  border: 2px inset #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #000080 0%, #0040b3 100%);
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.15);
+  transition: width 120ms ease;
+}
+
+.progress-label {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #000000;
+}
+
 /* Three.js canvas 16:9 container */
 
 .three-container {

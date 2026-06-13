@@ -3,6 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 
 type CameraFollowMouseProps = {
   enabled?: boolean;
+
 };
 
 export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseProps) {
@@ -63,4 +64,5 @@ export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseP
   });
 
   return null;
+  
 }
