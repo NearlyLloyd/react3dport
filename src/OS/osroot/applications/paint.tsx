@@ -6,6 +6,11 @@ export function Paint() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const isDrawing = useRef(false);
     const lastPoint = useRef<{ x: number; y: number } | null>(null);
+    const historyRef = useRef<string[]>([]);
+    const [canUndo, setCanUndo] = useState(false);
+    const redoRef = useRef<string[]>([]);
+    const [canRedo, setCanRedo] = useState(false);
+    const maxHistory = 20;
     const [brushSize, setBrushSize] = useState(10);
     const [color, setColor] = useState("black");
     const [tool, setTool] = useState("Pencil");
@@ -30,6 +35,20 @@ export function Paint() {
     };
 
     const startDrawing = (event: React.MouseEvent<HTMLCanvasElement>) => {
+        const canvas = canvasRef.current;
+        if (canvas) {
+            try {
+                const dataUrl = canvas.toDataURL();
+                historyRef.current.push(dataUrl);
+                if (historyRef.current.length > maxHistory) {
+                    historyRef.current.shift();
+                }
+                redoRef.current = [];
+                setCanRedo(false);
+                setCanUndo(historyRef.current.length > 0);
+            } catch (e) {
+            }
+        }
         const pos = getCanvasCoords(event);
         if (!pos) return;
         isDrawing.current = true;
@@ -91,14 +110,89 @@ export function Paint() {
         isDrawing.current = false;
         lastPoint.current = null;
     };
+
+    const undo = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d");
+        if (!canvas || !ctx) return;
+        const history = historyRef.current;
+        if (history.length === 0) return;
+        try {
+            const current = canvas.toDataURL();
+            redoRef.current.push(current);
+            if (redoRef.current.length > maxHistory) redoRef.current.shift();
+            setCanRedo(true);
+        } catch (e) {
+            // ignore
+        }
+        const dataUrl = history.pop()!;
+        const img = new Image();
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = dataUrl;
+        setCanUndo(historyRef.current.length > 0);
+    };
     const clearCanvas = () => {
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext("2d");
         if (!ctx || !canvas) return;
+        try {
+            const dataUrl = canvas.toDataURL();
+            historyRef.current.push(dataUrl);
+            if (historyRef.current.length > maxHistory) historyRef.current.shift();
+            setCanUndo(true);
+        } catch (e) {
+            // ignore
+        }
+        redoRef.current = [];
+        setCanRedo(false);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
+
+    const redo = () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d");
+        if (!canvas || !ctx) return;
+        const redoStack = redoRef.current;
+        if (redoStack.length === 0) return;
+        try {
+            const current = canvas.toDataURL();
+            historyRef.current.push(current);
+            if (historyRef.current.length > maxHistory) historyRef.current.shift();
+            setCanUndo(true);
+        } catch (e) {
+            // ignore
+        }
+        const dataUrl = redoStack.pop()!;
+        const img = new Image();
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = dataUrl;
+        setCanRedo(redoRef.current.length > 0);
+    };
+
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            if (e.ctrlKey && !e.altKey) {
+                const key = e.key.toLowerCase();
+                if (key === 'z' && !e.shiftKey) {
+                    e.preventDefault();
+                    undo();
+                } else if (key === 'y' || (key === 'z' && e.shiftKey)) {
+                    e.preventDefault();
+                    redo();
+                }
+            }
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, []);
     const downloadImage = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -150,7 +244,9 @@ export function Paint() {
             />
             <br></br>
             <button onClick={clearCanvas} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px" }}>Clear</button>
-            <button onClick={downloadImage} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px" }}>Download</button>
+            <button onClick={undo} disabled={!canUndo} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px", marginLeft: "10px" }}>Undo</button>
+            <button onClick={redo} disabled={!canRedo} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px", marginLeft: "10px" }}>Redo</button>
+            <button onClick={downloadImage} style={{ marginTop: "10px", width: "140px", height: "30px", fontSize: "25px", marginLeft: "10px" }}>Download</button>
         </>
     );
 
