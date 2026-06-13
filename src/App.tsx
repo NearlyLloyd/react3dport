@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [canAnimateCamera, setCanAnimateCamera] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
@@ -24,8 +25,12 @@ function App() {
 
   useEffect(() => {
     if (loadProgress >= 100) {
-      const timeout = window.setTimeout(() => setIsLoading(false), 500);
-      return () => window.clearTimeout(timeout);
+      const fadeDelay = window.setTimeout(() => setIsFadingOut(true), 300);
+      const hideDelay = window.setTimeout(() => setShowLoadingScreen(false), 900);
+      return () => {
+        window.clearTimeout(fadeDelay);
+        window.clearTimeout(hideDelay);
+      };
     }
   }, [loadProgress]);
 
@@ -38,8 +43,8 @@ function App() {
         </div>
       </div>
 
-      {isLoading && (
-        <div className="loading-screen">
+      {showLoadingScreen && (
+        <div className={`loading-screen${isFadingOut ? " fade-out" : ""}`}>
           <div className="loading-window">
             <div className="loading-window__titlebar">
               <span>Lloyd's Portfolio</span>
