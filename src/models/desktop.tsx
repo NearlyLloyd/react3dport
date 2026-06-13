@@ -1,7 +1,7 @@
-import { Environment, useGLTF, Html, OrthographicCamera, CameraControls } from "@react-three/drei";
+import { Environment, useGLTF, Html} from "@react-three/drei";
 
 import Windows95OS from "../OS/osroot/Windows95OS";
-import { invalidate, useFrame, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useState } from "react";
 

@@ -93,7 +93,7 @@ export function Paint() {
 
 
     function InlineColorSidebar(props: { colors: string[]; value: string; onChange: (c: string) => void }) {
-        const { colors, value, onChange } = props;
+        const { colors, onChange } = props;
         return (
             <div style={{ width: 112, padding: 8, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, background: '#c0c0c0', borderTop: '4px solid #fff', borderLeft: '4px solid #fff', borderRight: '2px solid #000', borderBottom: '2px solid #000' }}>
                 <div style={{ width: '100%', display: 'grid', gridTemplateColumns: 'repeat(2, 40px)', gap: 8, justifyContent: 'center' }}>

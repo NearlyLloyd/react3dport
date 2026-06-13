@@ -365,19 +365,6 @@ export function Snake() {
         lineHeight: 1.4,
     };
 
-    const sectionStyle: React.CSSProperties = {
-        display: "grid",
-        gap: "0.9rem",
-        padding: "1rem",
-        background: "#c0c0c0",
-        borderTop: "2px solid #fff",
-        borderLeft: "2px solid #fff",
-        borderRight: "2px solid #000",
-        borderBottom: "2px solid #000",
-        fontSize: "1rem",
-        fontFamily: "inherit",
-    };
-
 
 
 

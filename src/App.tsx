@@ -3,15 +3,12 @@ import Desktop from "./models/desktop";
 import "./App.css";
 import Desk from "./models/desk";
 import CameraFollowMouse from "./cameracontrols";
-import { useEffect, useRef, useState } from "react";
-import { OrbitControls } from "@react-three/drei";
-import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
+import { useEffect, useState } from "react";
 
 function App() {
   const [canAnimateCamera, setCanAnimateCamera] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
-  const ref = useRef<OrbitControlsImpl | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
