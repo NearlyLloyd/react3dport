@@ -1,12 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
+import { Vector3 } from "three";
 
 type CameraFollowMouseProps = {
   enabled?: boolean;
-
+  focusTarget?: [number, number, number];
+  focusLookAt?: [number, number, number];
 };
 
-export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseProps) {
+export default function CameraFollowMouse({ enabled = true, focusTarget, focusLookAt }: CameraFollowMouseProps) {
   const { camera } = useThree();
   const pointerRef = useRef({ x: 0, y: 0 });
   const baseRotationRef = useRef({
@@ -15,6 +17,8 @@ export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseP
     z: camera.rotation.z,
   });
   const appliedOffsetRef = useRef({ x: 0, y: 0, z: 0 });
+  const focusTargetRef = useRef(new Vector3());
+  const focusLookAtRef = useRef(new Vector3());
 
   useEffect(() => {
     const updatePointer = (event: PointerEvent) => {
@@ -31,6 +35,17 @@ export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseP
 
   // eslint-disable-next-line react-hooks/immutability
   useFrame(() => {
+    if (focusTarget) {
+      focusTargetRef.current.set(...focusTarget);
+      camera.position.lerp(focusTargetRef.current, 0.12);
+      if (focusLookAt) {
+        focusLookAtRef.current.set(...focusLookAt);
+      } else {
+        focusLookAtRef.current.set(0, 0, 0);
+      }
+      camera.lookAt(focusLookAtRef.current);
+    }
+
     if (!enabled) {
       appliedOffsetRef.current.x = 0;
       appliedOffsetRef.current.y = 0;
@@ -64,5 +79,5 @@ export default function CameraFollowMouse({ enabled = true }: CameraFollowMouseP
   });
 
   return null;
-  
+
 }
