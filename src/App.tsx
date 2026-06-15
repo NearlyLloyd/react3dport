@@ -25,6 +25,7 @@ function App() {
     };
 
     checkMobile();
+     setIsMobile(true);
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
@@ -62,7 +63,7 @@ function App() {
           </div>
           <div className="mobile-info">
             <p>Welcome to my portfolio! The interactive 3D experience is optimized for desktop browsers.</p>
-            <p>Please visit this site on a desktop device to explore the full interactive experience.</p>
+            <p>This site is currently under maintenance. Please check back soon for the full 3D experience.</p>
           </div>
 
           {/* About Me Section */}
