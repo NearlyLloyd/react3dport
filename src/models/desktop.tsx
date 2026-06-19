@@ -20,7 +20,7 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
     setCanAnimateCamera(false);
     gsap.to(camera.position, {
       x: -0.0,
-      y: 0.03,
+      y: -0.07,
       z: 0.3,
       duration: 1,
       ease: "power2.inOut",
@@ -79,7 +79,7 @@ export default function Desktop({ setCanAnimateCamera }: DesktopProps) {
   return (
     <>
 
-      <mesh position={[-0, 0.02, 0.1]} scale={1} onClick={moveCamera}>
+      <mesh position={[-0, -0.08, 0.1]} scale={1} onClick={moveCamera}>
         <primitive object={laptop.scene}>
 
         </primitive>

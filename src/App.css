@@ -4,6 +4,12 @@ body {
   padding: 0;
   overflow: hidden;
 }
+html{
+  background: linear-gradient(0deg, #00808098 0%, #ffffff 100%);
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+}
 
 mark {
   background-color: black;
@@ -16,8 +22,8 @@ mark {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: rgb(255, 255, 255);
-  color: #ffffff;
+  background-color: transparent;
+  color: transparent;
   z-index: 0;
 }
 
