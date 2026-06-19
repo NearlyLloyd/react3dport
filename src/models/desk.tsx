@@ -1,4 +1,4 @@
-import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { Environment, useGLTF } from "@react-three/drei";
 
 export default function Desk() {
   const desk = useGLTF("/desk/scene.gltf");
