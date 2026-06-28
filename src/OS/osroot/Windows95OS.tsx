@@ -38,12 +38,12 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
 
 
   const [PaintWindowSize, setPaintWindowSize] = useState({
-    width: 1000,
-    height: 1000,
+    width: 1200,
+    height: 1100,
   });
   const [PaintWindowPosition, setPaintWindowPosition] = useState({
-    x: 440,
-    y: -420,
+    x: 350,
+    y: -470,
   });
   const [AboutMeWindowSize, setAboutMeWindowSize] = useState({
     width: 1000,
@@ -112,9 +112,9 @@ export default function Windows95OS({ poweredOn = false, moveCameraBack }: Windo
       case "paint":
         setPaintWindowPosition({ x: -20, y: -627 });
         setPaintWindowSize((prevSize) =>
-          prevSize.width === 1000
+          prevSize.width === 1200
             ? { width: 1690, height: 1278 }
-            : { width: 1000, height: 1000 },
+            : { width: 1200, height: 1100 },
         );
         break;
       case "snake":
