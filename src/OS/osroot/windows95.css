@@ -264,6 +264,7 @@ html {
   justify-content: space-between;
   padding: 0 5px;
   box-sizing: border-box;
+  cursor: move;
 }
 
 .window__header .window__title {
